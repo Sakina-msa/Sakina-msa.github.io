@@ -219,6 +219,7 @@
       transition: box-shadow var(--transition), transform var(--transition), border-color var(--transition);
     }
     .carte:hover { box-shadow: var(--ombre); transform: translateY(-4px); border-color: var(--or); }
+    .carte-cliquable { cursor: pointer; }
 
     /* Capture du dashboard : s'affiche seulement si le fichier image existe */
     .capture {
@@ -447,7 +448,7 @@
       <div class="conteneur">
         <h2>Projets</h2>
 
-        <article class="carte">
+        <article class="carte carte-cliquable" data-lien="projet-luxe.html">
           <div class="carte-corps">
             <h3><a href="projet-luxe.html" class="titre-projet">Digitalisation du Luxe : e-commerce &amp; marque (2015–2030)</a></h3>
 
@@ -640,6 +641,14 @@
         boutonDemo.focus();
       });
     }
+
+    /* Un clic n'importe où sur la carte ouvre la page du projet (sauf sur les boutons) */
+    document.querySelectorAll(".carte-cliquable").forEach((c) => {
+      c.addEventListener("click", (e) => {
+        if (e.target.closest("a, button")) return;
+        window.location.href = c.dataset.lien;
+      });
+    });
 
     /* 4. Copier l'adresse email avec confirmation */
     const email = "msaasakina@gmail.com";
