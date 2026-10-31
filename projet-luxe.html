@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard Luxe — Sakina Mohamed Said Allaoui</title>
+  <meta name="description" content="Dashboard Power BI : performance des ventes et digitalisation de Louis Vuitton, Dior, Hermès et Gucci.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%234F46E5'/%3E%3Ctext x='32' y='44' font-family='Arial' font-size='26' font-weight='700' text-anchor='middle' fill='%23FFFFFF'%3ESA%3C/text%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --nuit: #111827;
+      --texte: #1f2937;
+      --texte-doux: #6b7280;
+      --or: #4f46e5;
+      --or-fonce: #4338ca;
+      --or-pale: #eef2ff;
+      --fond: #ffffff;
+      --fond-doux: #f6f7fb;
+      --bordure: #e5e7eb;
+      --ombre: 0 8px 24px rgba(17, 24, 39, 0.07);
+      --arrondi: 12px;
+      --transition: 0.25s ease;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; scroll-padding-top: 72px; }
+    body { font-family: "Poppins", "Segoe UI", system-ui, sans-serif; font-size: 15px; line-height: 1.7; color: var(--texte); background: var(--fond); overflow-x: hidden; }
+    .conteneur { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+    a { color: var(--or); text-decoration: none; }
+    h2 { font-size: 22px; font-weight: 700; color: var(--nuit); margin-bottom: 24px; text-transform: uppercase; }
+    h2::after { content: ""; display: block; width: 48px; height: 3px; background: var(--or); margin-top: 14px; border-radius: 2px; }
+    section { padding: 56px 0; }
+    section.gris { background: var(--fond-doux); }
+
+    /* Menu */
+    header { position: sticky; top: 0; z-index: 20; background: rgba(255,255,255,0.95); border-bottom: 1px solid var(--bordure); }
+    nav { display: flex; justify-content: space-between; align-items: center; min-height: 64px; gap: 16px; }
+    .logo { font-weight: 700; font-size: 18px; color: var(--nuit); white-space: nowrap; }
+    .logo span { color: var(--or); }
+    .retour { font-size: 13px; font-weight: 500; color: var(--texte-doux); text-transform: uppercase; letter-spacing: 0.06em; }
+    .retour:hover { color: var(--nuit); }
+
+    /* Boutons */
+    .bouton { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: 0 22px; border-radius: 999px; font: inherit; font-weight: 600; font-size: 13px; text-transform: uppercase; letter-spacing: 0.04em; cursor: pointer; border: 2px solid transparent; transition: background var(--transition), border-color var(--transition); }
+    .bouton.principal { background: var(--nuit); color: #fff; }
+    .bouton.principal:hover { background: var(--or); }
+    .bouton.contour { border-color: var(--bordure); color: var(--nuit); background: #fff; }
+    .bouton.contour:hover { border-color: var(--nuit); }
+
+    /* En-tête du projet (compact) */
+    .entete { background: var(--fond-doux); padding: 28px 0 24px; }
+    .badge { display: inline-block; background: var(--or-pale); color: var(--or); font-size: 11px; font-weight: 600; padding: 3px 12px; border-radius: 999px; margin-bottom: 10px; }
+    .entete h1 { font-size: 26px; line-height: 1.25; font-weight: 700; color: var(--nuit); margin-bottom: 6px; }
+    .entete .intro { font-size: 15px; color: var(--texte-doux); max-width: 760px; margin-bottom: 14px; }
+    .infos { display: flex; flex-wrap: wrap; gap: 6px 20px; margin-bottom: 16px; font-size: 13px; }
+    .info { display: flex; gap: 6px; align-items: baseline; }
+    .info dt { color: var(--texte-doux); }
+    .info dt::after { content: " :"; }
+    .info dd { font-weight: 600; color: var(--nuit); }
+    .actions { display: flex; gap: 10px; flex-wrap: wrap; }
+    .entete .bouton { min-height: 38px; padding: 0 18px; font-size: 12px; }
+
+    /* ===== Rapport interactif ===== */
+    .db { background: var(--fond-doux); border: 1px solid var(--bordure); border-radius: 16px; padding: 16px; }
+    #rapport { padding: 40px 0; }
+    #rapport h2 { margin-bottom: 18px; }
+    .db-haut { display: flex; justify-content: space-between; align-items: flex-end; gap: 16px; flex-wrap: wrap; margin-bottom: 8px; }
+    .onglets { display: flex; gap: 8px; flex-wrap: wrap; }
+    .onglet { font: inherit; font-size: 14px; font-weight: 600; padding: 9px 18px; border-radius: 999px; border: 1px solid var(--bordure); background: #fff; color: var(--texte-doux); cursor: pointer; transition: var(--transition); }
+    .onglet:hover { color: var(--nuit); border-color: var(--nuit); }
+    .onglet[aria-selected="true"] { background: var(--nuit); border-color: var(--nuit); color: #fff; }
+    .db-filtres { display: flex; gap: 10px; flex-wrap: wrap; align-items: flex-end; }
+    .db-filtres label { display: flex; flex-direction: column; font-size: 12px; color: var(--texte-doux); gap: 2px; }
+    .db-filtres label[hidden] { display: none; }
+    .db-filtres select { font: inherit; font-size: 14px; padding: 7px 10px; border: 1px solid var(--bordure); border-radius: 8px; background: #fff; color: var(--nuit); min-width: 120px; cursor: pointer; }
+    .db-reset { font: inherit; font-size: 13px; font-weight: 600; padding: 8px 14px; border-radius: 8px; border: 1px solid var(--bordure); background: #fff; color: var(--texte-doux); cursor: pointer; }
+    .db-reset:hover { color: var(--nuit); border-color: var(--nuit); }
+    .db-aide { font-size: 13px; color: var(--texte-doux); margin: 6px 0 16px; max-width: none; }
+    .db-page[hidden] { display: none; }
+    .db-kpis { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; margin-bottom: 12px; }
+    .db-kpis.trois { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .db-kpi { background: #fff; border: 1px solid var(--bordure); border-radius: var(--arrondi); padding: 12px 16px; }
+    .db-kpi.fonce { background: linear-gradient(135deg, #4b5a85, #2a3352); border-color: transparent; color: #fff; }
+    .db-kpi-lib { font-size: 13px; color: var(--texte-doux); }
+    .db-kpi.fonce .db-kpi-lib { color: #d6dbea; }
+    .db-kpi-val { font-size: 22px; font-weight: 700; color: var(--nuit); line-height: 1.3; }
+    .db-kpi.fonce .db-kpi-val { color: #fff; }
+    .db-kpi-sous { font-size: 11px; color: var(--texte-doux); }
+    .pos { color: #15803d !important; } .neg { color: #b91c1c !important; }
+    .db-carte { background: #fff; border: 1px solid var(--bordure); border-radius: var(--arrondi); padding: 14px 16px; margin-bottom: 12px; min-width: 0; }
+    .db-carte h3 { font-size: 14px; color: var(--nuit); margin-bottom: 4px; }
+    .db-sous { font-size: 12px; color: var(--texte-doux); margin-bottom: 8px; }
+    .db-grille-g { display: grid; grid-template-columns: minmax(0, 1.8fr) minmax(0, 1fr); gap: 12px; }
+    .db-grille-2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+    .db-svg { display: block; width: 100%; height: auto; margin-top: 6px; overflow: visible; }
+    #g-part .db-svg { max-width: 220px; margin: 6px auto 0; }
+    .db-axe { font-size: 11px; fill: var(--texte-doux); font-family: inherit; }
+    .db-etiq { font-size: 10px; fill: var(--texte); }
+    .db-centre { font-size: 18px; font-weight: 700; fill: var(--nuit); }
+    .db-grille { stroke: var(--bordure); stroke-width: 1; }
+    .db-point, .db-part { cursor: pointer; transition: opacity 0.15s; }
+    .db-part:hover { opacity: 0.8; }
+    .db-legende { display: flex; flex-wrap: wrap; gap: 6px 14px; font-size: 12px; color: var(--texte-doux); margin-top: 8px; }
+    .db-legende i { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 6px; vertical-align: -1px; }
+    .db-barres { display: grid; gap: 6px; margin-top: 8px; }
+    .db-barre { display: grid; grid-template-columns: minmax(90px, 38%) 1fr auto; align-items: center; gap: 10px; font-size: 12.5px; cursor: pointer; }
+    .db-nom { color: var(--texte); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .db-piste { background: var(--fond-doux); border-radius: 4px; height: 13px; overflow: hidden; }
+    .db-piste span { display: block; height: 100%; border-radius: 4px; transition: width 0.4s ease; }
+    .db-val { font-weight: 600; color: var(--nuit); min-width: 64px; text-align: right; }
+    .db-barre:hover .db-piste span { opacity: 0.8; }
+    .db-marque { background: #2a3352; color: #fff; border-radius: var(--arrondi); padding: 12px 16px; }
+    .db-marque-nom { font-size: 13px; letter-spacing: 0.2em; font-weight: 600; }
+    .db-trait { width: 32px; height: 2px; background: #C4A46A; margin: 8px 0 10px; }
+    .db-marque .db-kpi-lib { color: #c9cfe0; }
+    .db-marque-ligne { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; flex-wrap: wrap; }
+    .db-marque-ligne b { font-size: 19px; }
+    .db-marque .pos { color: #86efac !important; } .db-marque .neg { color: #fca5a5 !important; }
+    .db-bulle { position: fixed; z-index: 60; pointer-events: none; background: var(--nuit); color: #fff; font-size: 12.5px; line-height: 1.5; padding: 7px 10px; border-radius: 8px; opacity: 0; transition: opacity 0.12s; max-width: 240px; }
+    @media (max-width: 900px) {
+      .db-kpis, .db-kpis.trois { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .db-grille-g, .db-grille-2 { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 480px) {
+      .db { padding: 12px; }
+      .db-kpi-val { font-size: 20px; }
+      .db-filtres { width: 100%; }
+      .db-filtres label { flex: 1 1 30%; }
+      .db-filtres select { min-width: 0; width: 100%; }
+    }
+
+    /* Démarche (compacte, juste avant le rapport) */
+    .demarche { padding: 32px 0 0; }
+    .demarche h2 { margin-bottom: 16px; }
+    .etapes { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; counter-reset: e; }
+    .etape { background: #fff; border: 1px solid var(--bordure); border-radius: var(--arrondi); padding: 14px 16px; position: relative; }
+    .etape:not(:last-child)::after { content: "→"; position: absolute; right: -11px; top: 50%; transform: translateY(-50%); color: var(--or); font-weight: 700; background: var(--fond); line-height: 1; }
+    .etape .n { font-size: 12px; font-weight: 700; color: var(--or); }
+    .etape h3 { font-size: 15px; color: var(--nuit); margin: 2px 0 4px; }
+    .etape p { color: var(--texte-doux); font-size: 13px; line-height: 1.55; }
+    .etiquettes { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+    .etiquette { background: var(--or-pale); color: var(--or-fonce); font-size: 11px; font-weight: 500; padding: 1px 9px; border-radius: 999px; }
+    @media (max-width: 900px) { .etapes { grid-template-columns: repeat(2, minmax(0, 1fr)); } .etape::after { display: none; } }
+    @media (max-width: 480px) { .etapes { grid-template-columns: 1fr; } }
+
+    footer { text-align: center; padding: 28px 16px; color: var(--texte-doux); font-size: 14px; border-top: 1px solid var(--bordure); }
+
+    @media (max-width: 860px) {
+      .rapport { grid-template-columns: 1fr; }
+      .explication { min-height: 0; }
+    }
+    @media (max-width: 640px) {
+      .conteneur { padding: 0 16px; }
+      .entete h1 { font-size: 22px; }
+      .point { width: 24px; height: 24px; font-size: 11px; border-width: 2px; }
+      .actions .bouton { width: 100%; }
+    }
+    @media (prefers-reduced-motion: reduce) { .point { animation: none; } html { scroll-behavior: auto; } }
+  </style>
+</head>
+<body>
+
+  <header>
+    <nav class="conteneur">
+      <a href="index.html" class="logo">Sakina<span>.</span></a>
+      <a href="index.html#projets" class="retour">← Retour aux projets</a>
+    </nav>
+  </header>
+
+  <main>
+
+    <!-- EN-TÊTE -->
+    <section class="entete">
+      <div class="conteneur">
+        <span class="badge">Projet Data / BI</span>
+        <h1>Digitalisation du Luxe : e-commerce &amp; marque</h1>
+        <p class="intro">Dashboard BI complet analysant les performances de ventes de 4 maisons de luxe : Louis Vuitton, Dior, Hermès et Gucci.</p>
+
+        <dl class="infos">
+          <div class="info"><dt>Objectif</dt><dd>suivre les ventes et la part du e-commerce</dd></div>
+          <div class="info"><dt>Période</dt><dd>2015 – 2026</dd></div>
+          <div class="info"><dt>Contenu</dt><dd>3 pages interactives</dd></div>
+          <div class="info"><dt>Outils</dt><dd>Power BI · DAX · Python</dd></div>
+        </dl>
+
+        <div class="actions">
+          <!-- Si tu obtiens un lien "Publier sur le web" dans Power BI : remplace l'adresse par ce lien, retire "download" et mets le texte "Voir sur Power BI" -->
+          <a href="https://github.com/Sakina-msa/luxe-bi/raw/main/luxe_bi.pbix" class="bouton principal" download>Télécharger le fichier Power BI</a>
+          <a href="https://github.com/Sakina-msa/luxe-bi" target="_blank" rel="noopener" class="bouton contour">Voir sur GitHub</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- RAPPORT INTERACTIF -->
+    <!-- DÉMARCHE -->
+    <section class="demarche">
+      <div class="conteneur">
+        <h2>Ma démarche</h2>
+        <div class="etapes">
+          <div class="etape">
+            <div class="n">01</div>
+            <h3>Nettoyer les données</h3>
+            <p>Script Python qui corrige les données brutes (doublons, pays mal écrits, dates, montants aberrants) avec 8 règles de qualité.</p>
+            <div class="etiquettes"><span class="etiquette">Python</span><span class="etiquette">pandas</span></div>
+          </div>
+          <div class="etape">
+            <div class="n">02</div>
+            <h3>Modéliser</h3>
+            <p>Schéma en étoile : une table des ventes au centre, reliée à 6 dimensions (date, marque, pays, canal, catégorie, segment client).</p>
+            <div class="etiquettes"><span class="etiquette">Power BI</span><span class="etiquette">Schéma en étoile</span></div>
+          </div>
+          <div class="etape">
+            <div class="n">03</div>
+            <h3>Calculer les indicateurs</h3>
+            <p>Mesures DAX : chiffre d'affaires, croissance vs N-1, panier moyen, part online, part de marque.</p>
+            <div class="etiquettes"><span class="etiquette">DAX</span></div>
+          </div>
+          <div class="etape">
+            <div class="n">04</div>
+            <h3>Construire le dashboard</h3>
+            <p>3 pages reliées par un menu, filtres, couleurs conditionnelles (vert / rouge) et thème personnalisé.</p>
+            <div class="etiquettes"><span class="etiquette">Data visualisation</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="rapport">
+      <div class="conteneur">
+        <h2>Le rapport interactif</h2>
+
+        <div class="db">
+          <div class="db-haut">
+            <div class="onglets" role="tablist" aria-label="Pages du rapport">
+              <button class="onglet" role="tab" data-page="direction" aria-selected="true">Vue Direction</button>
+              <button class="onglet" role="tab" data-page="ecommerce" aria-selected="false">E-commerce</button>
+              <button class="onglet" role="tab" data-page="marques" aria-selected="false">Marques</button>
+            </div>
+            <div class="db-filtres">
+              <label>Année<select id="f-annee"></select></label>
+              <label id="f-marque-bloc">Marque<select id="f-marque"></select></label>
+              <label>Pays<select id="f-pays"></select></label>
+              <button type="button" class="db-reset" id="f-reset">Réinitialiser</button>
+            </div>
+          </div>
+          <p class="db-aide">Change les filtres et passe la souris sur les graphiques pour voir le détail. Période : <b id="periode"></b> · données fictives générées pour le projet.</p>
+
+          <!-- PAGE 1 : VUE DIRECTION -->
+          <div class="db-page" id="p-direction">
+            <div class="db-kpis">
+              <div class="db-kpi fonce"><div class="db-kpi-lib">Chiffre d'affaires</div><div id="k-ca" class="db-kpi-val"></div></div>
+              <div class="db-kpi"><div class="db-kpi-lib">Croissance</div><div id="k-croiss" class="db-kpi-val"></div><div class="db-kpi-sous" id="k-croiss-sous"></div></div>
+              <div class="db-kpi"><div class="db-kpi-lib">Panier moyen</div><div id="k-panier" class="db-kpi-val"></div></div>
+              <div class="db-kpi"><div class="db-kpi-lib">Part online</div><div id="k-online" class="db-kpi-val"></div></div>
+            </div>
+            <div class="db-grille-g">
+              <div class="db-carte large"><h3>Évolution du CA annuel par marque, 2015–2025</h3><div id="g-evol"></div></div>
+              <div class="db-carte"><h3>Part de marque</h3><div id="g-part"></div></div>
+            </div>
+          </div>
+
+          <!-- PAGE 2 : E-COMMERCE -->
+          <div class="db-page" id="p-ecommerce" hidden>
+            <div class="db-kpis trois">
+              <div class="db-kpi fonce"><div class="db-kpi-lib">Part des ventes en ligne</div><div id="k-e-online" class="db-kpi-val"></div></div>
+              <div class="db-kpi"><div class="db-kpi-lib">CA site de la marque</div><div id="k-e-site" class="db-kpi-val"></div></div>
+              <div class="db-kpi"><div class="db-kpi-lib">CA marketplaces</div><div id="k-e-mkt" class="db-kpi-val"></div></div>
+            </div>
+            <div class="db-carte"><h3>Part des ventes en ligne par marque, 2015–2026</h3><p class="db-sous">Pic des confinements en 2020, puis installation durable du digital</p><div id="g-e-evol"></div></div>
+            <div class="db-grille-2">
+              <div class="db-carte"><h3>CA par canal de vente</h3><p class="db-sous">Les boutiques restent le canal n°1</p><div id="g-e-canal"></div></div>
+              <div class="db-carte"><h3>Part online par pays</h3><p class="db-sous">Comparaison de tous les pays (le pays filtré est en violet)</p><div id="g-e-pays"></div></div>
+            </div>
+          </div>
+
+          <!-- PAGE 3 : MARQUES -->
+          <div class="db-page" id="p-marques" hidden>
+            <div class="db-kpis" id="cartes-marques"></div>
+            <div class="db-grille-2">
+              <div class="db-carte"><h3>Croissance du CA vs année précédente</h3><div id="g-m-croiss"></div></div>
+              <div class="db-carte"><h3>Mix produits par marque (% du CA)</h3><div id="g-m-mix"></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+
+  </main>
+
+  <footer>© 2026 Sakina Mohamed Said Allaoui · <a href="index.html">Retour au portfolio</a></footer>
+
+  <!-- Zoom plein écran -->
+  <script src="data.js"></script>
+  <script src="dashboard.js"></script>
+</body>
+</html>

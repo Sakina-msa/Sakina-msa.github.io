@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sakina Mohamed Said Allaoui — Portfolio Data / BI</title>
+  <meta name="description" content="Portfolio de Sakina Mohamed Said Allaoui, étudiante en Licence MIAGE (Méthodes informatiques appliquées à la gestion des entreprises) à l'Université Paris Nanterre, en recherche de stage Data Analyst / BI à partir de janvier 2027.">
+
+  <!-- Favicon avec les initiales (pas besoin de fichier image) -->
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%234F46E5'/%3E%3Ctext x='32' y='44' font-family='Arial' font-size='26' font-weight='700' text-anchor='middle' fill='%23FFFFFF'%3ESA%3C/text%3E%3C/svg%3E">
+
+  <!-- Police Poppins (une seule police, plusieurs graisses) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    /* ===== RÉGLAGES GÉNÉRAUX : tout se change ici ===== */
+    :root {
+      /* Palette douce : bleu ciel + bleu profond + gris */
+      --nuit: #111827;           /* titres (presque noir) */
+      --ciel: #f6f7fb;           /* fond de l'accueil et du pied de page */
+      --ciel-bord: #e0e7ff;
+      --or: #4f46e5;             /* accent : liens, traits (bleu-violet) */
+      --or-fonce: #4338ca;       /* accent foncé */
+      --or-pale: #eef2ff;        /* fond des badges */
+      --texte: #1f2937;
+      --texte-doux: #6b7280;     /* gris secondaire */
+      --fond: #ffffff;
+      --fond-doux: #f6f7fb;
+      --bordure: #e5e7eb;
+
+      /* Échelle d'espacement unique */
+      --e-8: 8px;
+      --e-16: 16px;
+      --e-24: 24px;
+      --e-32: 32px;
+      --e-48: 48px;
+      --e-64: 64px;
+      --e-96: 96px;
+
+      /* Composants : mêmes arrondis, même ombre, mêmes transitions */
+      --arrondi: 12px;
+      --ombre: 0 8px 24px rgba(17, 24, 39, 0.07);
+      --transition: 0.25s ease;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; scroll-padding-top: 72px; }
+
+    body {
+      font-family: "Poppins", "Segoe UI", system-ui, sans-serif;
+      font-size: 15px;
+      line-height: 1.7;
+      color: var(--texte);
+      background: var(--fond);
+      overflow-x: hidden;
+    }
+
+    /* Grille commune : mêmes marges partout */
+    .conteneur { max-width: 1100px; margin: 0 auto; padding: 0 var(--e-24); }
+
+    /* Hiérarchie des titres */
+    h1 { font-size: 38px; line-height: 1.15; font-weight: 700; letter-spacing: -0.01em; }
+    h2 { font-size: 24px; line-height: 1.25; font-weight: 700; color: var(--nuit); margin-bottom: var(--e-32); text-transform: uppercase; letter-spacing: 0.01em; }
+    h3 { font-size: 17px; line-height: 1.35; font-weight: 600; color: var(--nuit); }
+
+    /* Petit trait or sous chaque titre de section */
+    h2::after {
+      content: ""; display: block;
+      width: 48px; height: 3px;
+      background: var(--or);
+      margin-top: var(--e-16);
+      border-radius: 2px;
+    }
+
+    p { max-width: 70ch; }
+
+    a:focus-visible, button:focus-visible {
+      outline: 3px solid var(--or);
+      outline-offset: 3px;
+    }
+
+    /* ===== BOUTONS (un seul style partout) ===== */
+    .bouton {
+      display: inline-flex; align-items: center; justify-content: center; gap: var(--e-8);
+      min-height: 44px;
+      padding: 0 var(--e-24);
+      border-radius: 999px;
+      font: inherit; font-weight: 600; font-size: 13px;
+      text-transform: uppercase; letter-spacing: 0.04em;
+      text-decoration: none;
+      cursor: pointer;
+      border: 2px solid transparent;
+      transition: background var(--transition), color var(--transition), transform var(--transition), border-color var(--transition);
+    }
+    /* Bouton principal : bleu avec texte blanc */
+    .bouton.principal { background: var(--nuit); color: #fff; }
+    .bouton.principal:hover { background: var(--or); transform: translateY(-2px); }
+    /* Bouton secondaire sur l'accueil */
+    .bouton.contour-clair { border-color: var(--bordure); color: var(--nuit); background: #fff; }
+    .bouton.contour-clair:hover { border-color: var(--nuit); }
+    /* Bouton secondaire sur fond clair */
+    .bouton.contour { border-color: var(--bordure); color: var(--nuit); background: transparent; }
+    .bouton.contour:hover { border-color: var(--nuit); }
+
+    .lien {
+      color: var(--or-fonce); font-weight: 600; text-decoration: none;
+      border-bottom: 2px solid var(--ciel-bord);
+      transition: color var(--transition);
+    }
+    .lien:hover { color: var(--or-fonce); }
+
+    /* ===== MENU FIXE ===== */
+    header {
+      position: sticky; top: 0; z-index: 20;
+      background: rgba(255, 255, 255, 0.95);
+      border-bottom: 1px solid var(--bordure);
+    }
+    nav { display: flex; justify-content: space-between; align-items: center; gap: var(--e-16); min-height: 64px; }
+    .logo { font-weight: 700; font-size: 18px; color: var(--nuit); text-decoration: none; }
+    .logo { white-space: nowrap; }
+    .logo .point { color: var(--or); }
+    .logo .initiales { display: none; }
+    nav ul a { white-space: nowrap; }
+    nav ul { display: flex; gap: var(--e-24); list-style: none; }
+    nav ul a {
+      color: var(--texte-doux); text-decoration: none; font-size: 13px; font-weight: 400;
+      text-transform: uppercase; letter-spacing: 0.08em;
+      padding: var(--e-8) 0;
+      border-bottom: 2px solid transparent;
+      transition: color var(--transition), border-color var(--transition);
+    }
+    nav ul a:hover { color: var(--or); }
+    /* Lien de la section où l'on se trouve */
+    nav ul a.actif { color: var(--or-fonce); border-bottom-color: var(--or); }
+
+    /* ===== ACCUEIL (fond bleu ciel) ===== */
+    .accueil {
+      background: var(--ciel);
+      color: var(--nuit);
+      padding: var(--e-64) 0;
+    }
+    .accueil .badge-haut {
+      display: inline-flex; align-items: center; gap: var(--e-8);
+      color: var(--or);
+      background: var(--or-pale);
+      border: 1px solid var(--or-pale);
+      font-size: 12px; font-weight: 500;
+      padding: 6px var(--e-16);
+      border-radius: 999px;
+      margin-bottom: var(--e-24);
+    }
+    .accueil .badge-haut::before {
+      content: ""; width: 8px; height: 8px; border-radius: 50%; background: #22c55e;
+    }
+    .accueil h1 { margin-bottom: var(--e-8); }
+    .accueil .sous-titre { font-size: 17px; color: var(--texte-doux); margin-bottom: var(--e-24); font-weight: 500; }
+    .accueil .message { font-size: 16px; color: var(--texte); margin-bottom: var(--e-32); }
+    .actions { display: flex; flex-wrap: wrap; gap: var(--e-16); }
+    .bloc-mot { white-space: nowrap; }
+    .sous-titre .role { display: block; }
+    @media (max-width: 380px) { .bloc-mot { white-space: normal; } }
+
+    /* Accueil en deux colonnes : texte à gauche, encadré "En bref" à droite */
+    .accueil-grille {
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+      gap: var(--e-48);
+      align-items: center;
+    }
+    .en-bref {
+      position: relative;
+      background: rgba(255, 255, 255, 0.55);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid rgba(255, 255, 255, 0.8);
+      border-radius: 10px;
+      padding: var(--e-32);
+      box-shadow: 0 8px 32px rgba(17, 24, 39, 0.06);
+    }
+    .en-bref .petit-titre { font-size: 13px; color: var(--texte-doux); margin-bottom: 2px; }
+    .en-bref h2 { font-size: 24px; margin-bottom: var(--e-24); }
+    .en-bref h2::after { display: none; }
+    .en-bref dl { display: grid; gap: var(--e-16); }
+    .en-bref dl > div { display: flex; gap: var(--e-16); align-items: center; }
+    /* Icônes fines et grises, sans cadre (style Gmail) */
+    .en-bref .icone {
+      flex: none; width: 24px; height: 24px;
+      color: var(--texte-doux);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .en-bref .icone svg { width: 22px; height: 22px; }
+    .en-bref dt { font-size: 12px; color: var(--texte-doux); }
+    .en-bref dd { font-size: 15px; font-weight: 600; color: var(--nuit); line-height: 1.4; }
+    .en-bref .nom-formation { font-size: 13px; font-weight: 400; color: var(--nuit); }
+    .en-bref .ecole { font-size: 13px; font-weight: 400; color: var(--texte-doux); line-height: 1.45; display: inline-block; margin-top: 2px; }
+
+    /* Formes floues derrière l'accueil, pour que l'effet transparent se voie */
+    .accueil { position: relative; overflow: hidden; }
+    .accueil::before, .accueil::after {
+      content: ""; position: absolute; border-radius: 50%;
+      filter: blur(60px); pointer-events: none;
+    }
+    .accueil::before { width: 380px; height: 380px; background: #c7d2fe; opacity: 0.6; right: 6%; top: -80px; }
+    .accueil::after { width: 300px; height: 300px; background: #e0e7ff; opacity: 0.7; right: 28%; bottom: -120px; }
+    .accueil .conteneur { position: relative; z-index: 1; }
+
+    /* ===== SECTIONS ===== */
+    section { padding: var(--e-64) 0; }
+    section.gris { background: var(--fond-doux); }
+
+    /* ===== CARTE PROJET ===== */
+    .carte {
+      background: var(--fond);
+      border: 1px solid var(--bordure);
+      border-radius: var(--arrondi);
+      overflow: hidden;
+      transition: box-shadow var(--transition), transform var(--transition), border-color var(--transition);
+    }
+    .carte:hover { box-shadow: var(--ombre); transform: translateY(-4px); border-color: var(--or); }
+    .carte-cliquable { cursor: pointer; }
+    .carte-cliquable .capture img { transition: transform 0.4s ease; }
+    .carte-cliquable:hover .capture img { transform: scale(1.02); }
+
+    /* Capture du dashboard : s'affiche seulement si le fichier image existe */
+    .capture {
+      background: var(--ciel);
+      padding: var(--e-24) var(--e-24) 0;
+    }
+    .capture img {
+      display: block; width: 100%; height: 240px;
+      object-fit: cover; object-position: top center;
+      border-radius: 8px 8px 0 0;
+    }
+
+    .carte-corps { padding: var(--e-24) var(--e-32); }
+    .carte h3 { margin-bottom: var(--e-16); font-size: 19px; }
+    .titre-projet { color: inherit; text-decoration: none; }
+    .titre-projet:hover { color: var(--or); text-decoration: underline; }
+
+    .details {
+      display: grid;
+      grid-template-columns: 110px 1fr;
+      gap: var(--e-8) var(--e-24);
+      margin-bottom: var(--e-24);
+      font-size: 15px;
+    }
+    .details dt { font-weight: 600; color: var(--nuit); }
+    .details dd { color: var(--texte-doux); max-width: 70ch; font-weight: 300; }
+
+    .etiquettes { display: flex; flex-wrap: wrap; gap: var(--e-8); }
+    .etiquette {
+      background: var(--fond-doux);
+      border: 1px solid var(--bordure);
+      color: var(--nuit);
+      font-size: 13px; font-weight: 500;
+      padding: 3px 12px;
+      border-radius: 999px;
+    }
+    .carte .etiquette { background: var(--or-pale); border-color: var(--ciel-bord); color: var(--or-fonce); }
+
+    /* ===== VOIR LE PROJET ===== */
+    .actions-projet { display: flex; flex-wrap: wrap; gap: var(--e-16); }
+    .bouton[hidden] { display: none; }
+    .demo { border-top: 1px solid var(--bordure); background: var(--fond-doux); }
+    .demo[hidden] { display: none; }
+    .demo-barre {
+      display: flex; justify-content: space-between; align-items: center; gap: var(--e-16);
+      padding: var(--e-16) var(--e-32);
+      font-weight: 600; color: var(--nuit);
+    }
+    .demo-barre div { display: flex; align-items: center; gap: var(--e-16); }
+    .demo-fermer {
+      width: 44px; height: 44px; border-radius: 50%;
+      border: 1px solid var(--bordure); background: var(--fond);
+      color: var(--nuit); font-size: 16px; cursor: pointer;
+      transition: background var(--transition);
+    }
+    .demo-fermer:hover { background: var(--ciel); }
+    .demo-cadre { padding: 0 var(--e-32) var(--e-32); }
+    .demo-cadre iframe {
+      display: block; width: 100%; height: 720px;
+      border: 1px solid var(--bordure); border-radius: 8px; background: #fff;
+    }
+
+    /* ===== COMPÉTENCES ===== */
+    .competences {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: var(--e-24);
+    }
+    .bloc {
+      background: var(--fond);
+      border: 1px solid var(--bordure);
+      border-radius: var(--arrondi);
+      padding: var(--e-24);
+    }
+    .bloc h3 { margin-bottom: var(--e-16); font-size: 16px; display: flex; align-items: center; gap: 10px; }
+    .bloc { transition: border-color var(--transition), box-shadow var(--transition); }
+    .bloc:hover { border-color: var(--or); box-shadow: var(--ombre); }
+    .bloc .pastille {
+      width: 36px; height: 36px; border-radius: 10px; flex: none;
+      background: var(--or-pale); color: var(--or);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .bloc .pastille svg { width: 20px; height: 20px; }
+    /* Compétences mises en avant (utilisées dans le projet) */
+    .etiquette.cle { background: var(--or-pale); border-color: var(--ciel-bord); color: var(--or-fonce); }
+
+    /* ===== À PROPOS ===== */
+    .a-propos-carte {
+      max-width: 800px; margin: 0 auto;
+      background: var(--fond); border: 1px solid var(--bordure);
+      border-radius: 16px; box-shadow: var(--ombre);
+      padding: var(--e-32); text-align: center;
+    }
+    .a-propos-carte p { font-size: 16px; color: var(--texte-doux); max-width: none; }
+    .a-propos-carte p + p { margin-top: var(--e-16); }
+    .a-propos-carte strong { color: var(--texte); font-weight: 600; }
+
+    /* ===== CONTACT ===== */
+    .contact p { margin-bottom: var(--e-24); font-size: 16px; color: var(--texte-doux); }
+    .email-ligne { display: flex; flex-wrap: wrap; align-items: center; gap: var(--e-16); }
+    .confirmation {
+      font-size: 15px; font-weight: 600; color: #1d6b45;
+      opacity: 0; transition: opacity var(--transition);
+    }
+    .confirmation.visible { opacity: 1; }
+
+    /* ===== PIED DE PAGE ===== */
+    footer { background: var(--ciel); color: var(--texte-doux); border-top: 1px solid var(--ciel-bord); padding: var(--e-32) 0; font-size: 14px; }
+    .pied { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: var(--e-24); }
+    .pied ul { display: flex; flex-wrap: wrap; gap: var(--e-24); list-style: none; }
+    .pied a { color: var(--or-fonce); text-decoration: none; font-weight: 600; transition: color var(--transition); }
+    .pied a:hover { color: var(--nuit); text-decoration: underline; }
+
+    /* ===== BOUTON RETOUR EN HAUT ===== */
+    .haut {
+      position: fixed; right: var(--e-24); bottom: var(--e-24); z-index: 30;
+      width: 48px; height: 48px; border-radius: 50%;
+      background: var(--nuit); color: #fff;
+      border: none; cursor: pointer;
+      font-size: 22px; font-weight: 700;
+      box-shadow: var(--ombre);
+      opacity: 0; pointer-events: none;
+      transition: opacity var(--transition), transform var(--transition);
+    }
+    .haut.visible { opacity: 1; pointer-events: auto; }
+    .haut:hover { transform: translateY(-3px); }
+
+    /* Pas d'animation d'apparition : les sections s'affichent directement */
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .bouton, .carte, .haut { transition: none; }
+    }
+
+    @media (max-width: 860px) {
+      .accueil-grille { grid-template-columns: 1fr; gap: var(--e-32); }
+    }
+
+    /* ===== VERSION TÉLÉPHONE ===== */
+    @media (max-width: 640px) {
+      body { font-size: 15px; }
+      .conteneur { padding: 0 var(--e-16); }
+      h1 { font-size: 28px; }
+      h2 { font-size: 20px; margin-bottom: var(--e-24); }
+      .accueil { padding: var(--e-48) 0; }
+      .accueil .sous-titre { font-size: 16px; }
+      .accueil .message { font-size: 15px; margin-bottom: var(--e-24); }
+      section { padding: var(--e-48) 0; }
+      nav ul { gap: var(--e-16); }
+      nav ul a { font-size: 11px; letter-spacing: 0.04em; }
+      .logo .nom-complet { display: none; }
+      .logo .initiales { display: inline; }
+      .carte-corps { padding: var(--e-24); }
+      .capture { padding: var(--e-16) var(--e-16) 0; }
+      .capture img { height: 160px; }
+      .details { grid-template-columns: 1fr; gap: 4px; }
+      .details dd { margin-bottom: var(--e-16); }
+      .actions .bouton, .actions-projet .bouton { width: 100%; }
+      .demo-barre { padding: var(--e-16); }
+      .demo-cadre { padding: 0 var(--e-16) var(--e-16); }
+      .demo-cadre iframe { height: 560px; }
+      .haut { right: var(--e-16); bottom: var(--e-16); }
+    }
+    @media (max-width: 345px) {
+      nav { gap: 6px !important; }
+      nav ul { gap: 8px !important; }
+      nav ul a { font-size: 10px !important; letter-spacing: 0.02em; }
+      .logo { font-size: 15px !important; }
+    }
+    @media (max-width: 380px) {
+      .logo { font-size: 16px; }
+      nav { gap: var(--e-8); }
+      nav ul { gap: 10px; }
+      nav ul a { font-size: 11px; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ===== MENU FIXE ===== -->
+  <header>
+    <nav class="conteneur" aria-label="Menu principal">
+      <a href="#accueil" class="logo" aria-label="Sakina Mohamed Said Allaoui, retour en haut"><span class="nom-complet">Sakina Mohamed Said Allaoui</span><span class="initiales">Sakina</span><span class="point">.</span></a>
+      <ul>
+        <li><a href="#projets">Projets</a></li>
+        <li><a href="#competences">Compétences</a></li>
+        <li><a href="#a-propos">À propos</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+
+    <!-- ===== 1. ACCUEIL ===== -->
+    <section id="accueil" class="accueil">
+      <div class="conteneur accueil-grille">
+        <div>
+        <span class="badge-haut">En recherche de stage · Janvier 2027</span>
+        <h1>Sakina Mohamed Said Allaoui</h1>
+        <p class="sous-titre">Étudiante en MIAGE à l'Université Paris Nanterre</p>
+        <p class="message">Disponible pour un stage en Data Analyse / BI dès janvier 2027.</p>
+        <div class="actions">
+          <a href="#projets" class="bouton principal">Voir mes projets</a>
+          <!-- Mets ton CV dans le même dossier que ce fichier, sous le nom cv.pdf -->
+          <a href="cv.pdf" class="bouton contour-clair" download>Télécharger mon CV</a>
+        </div>
+        </div>
+
+        <!-- Encadré "Mon profil" (effet verre dépoli) -->
+        <aside class="en-bref" aria-labelledby="titre-en-bref">
+          <p class="petit-titre">en quelques mots</p>
+          <h2 id="titre-en-bref">Mon profil</h2>
+          <dl>
+            <div><span class="icone" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10 12 5 2 10l10 5 10-5z"/><path d="M6 12v5c3 2 9 2 12 0v-5"/></svg></span><span><dt>Formation</dt><dd>Licence MIAGE <span class="nom-formation">(Méthodes informatiques appliquées à la gestion des entreprises)</span><br><span class="ecole">2023 – En cours · Université Paris Nanterre</span></dd></span></div>
+            <div><span class="icone" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="6.5"/><path d="m20 20-4.4-4.4"/></svg></span><span><dt>Recherche</dt><dd>Stage Data Analyst / BI</dd></span></div>
+            <div><span class="icone" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5" width="17" height="15.5" rx="2"/><path d="M16 3v4M8 3v4M3.5 10h17"/></svg></span><span><dt>Disponibilité</dt><dd>Dès janvier 2027</dd></span></div>
+            <div><span class="icone" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span><span><dt>Durée</dt><dd>Flexible</dd></span></div>
+          </dl>
+        </aside>
+      </div>
+    </section>
+
+    <!-- ===== 2. PROJETS ===== -->
+    <section id="projets" class="gris">
+      <div class="conteneur">
+        <h2>Projets</h2>
+
+        <article class="carte carte-cliquable" data-lien="projet-luxe.html">
+          <!-- Capture du dashboard (luxe-1.png, dans le même dossier).
+               Tant que l'image n'existe pas, ce bloc reste caché. -->
+          <div class="capture">
+            <img src="vue-direction.png" alt="Capture du dashboard Digitalisation du Luxe : Vue Direction" loading="lazy"
+                 onerror="this.parentElement.style.display='none'">
+          </div>
+
+          <div class="carte-corps">
+            <h3><a href="projet-luxe.html" class="titre-projet">Digitalisation du Luxe : e-commerce &amp; marque (2015–2030)</a></h3>
+
+            <dl class="details">
+              <dt>Description</dt>
+              <dd>Dashboard BI complet analysant les performances de ventes.</dd>
+
+              <dt>Objectif</dt>
+              <dd>Suivre la performance des ventes et la digitalisation (part du e-commerce) de 4 maisons de luxe : Louis Vuitton, Dior, Hermès et Gucci.</dd>
+
+              <dt>Outils</dt>
+              <dd>
+                <div class="etiquettes">
+                  <span class="etiquette">Power BI</span>
+                  <span class="etiquette">Python</span>
+                </div>
+              </dd>
+            </dl>
+
+            <!-- Deux façons de voir le projet -->
+            <div class="actions-projet">
+              <!-- Ce bouton n'apparaît que si l'adresse de la démo est renseignée dans le script en bas de page -->
+              <button type="button" class="bouton principal" id="ouvrir-demo" hidden>Voir le dashboard ici</button>
+              <!-- Page de présentation détaillée du projet -->
+              <a class="bouton principal" href="projet-luxe.html">Voir le projet en détail</a>
+              <!-- Vérifie que ce lien mène bien à ton dépôt -->
+              <a class="bouton contour" href="https://github.com/Sakina-msa/luxe-bi" target="_blank" rel="noopener">Voir le code sur GitHub</a>
+            </div>
+          </div>
+
+          <!-- Zone où le dashboard s'affiche directement dans la page (chargé seulement au clic) -->
+          <div class="demo" id="demo" hidden>
+            <div class="demo-barre">
+              <span>Dashboard interactif</span>
+              <div>
+                <a href="#" id="demo-plein" class="lien" target="_blank" rel="noopener">Ouvrir en plein écran ↗</a>
+                <button type="button" class="demo-fermer" id="fermer-demo" aria-label="Fermer le dashboard">✕</button>
+              </div>
+            </div>
+            <div class="demo-cadre" id="demo-cadre"></div>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- ===== 3. COMPÉTENCES (badges, pas de pourcentages) ===== -->
+    <section id="competences">
+      <div class="conteneur">
+        <h2>Compétences</h2>
+        <div class="competences">
+
+          <div class="bloc">
+            <h3><span class="pastille" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></span>Data &amp; BI</h3>
+            <div class="etiquettes">
+              <span class="etiquette cle">Power BI</span>
+              <span class="etiquette cle">DAX</span>
+              <span class="etiquette cle">Python (pandas)</span>
+              <span class="etiquette cle">Schéma en étoile</span>
+              <span class="etiquette">SQL</span>
+              <span class="etiquette">PL/SQL</span>
+              <span class="etiquette">Excel</span>
+            </div>
+          </div>
+
+          <div class="bloc">
+            <h3><span class="pastille" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m8 7-5 5 5 5M16 7l5 5-5 5"/></svg></span>Développement</h3>
+            <div class="etiquettes">
+              <span class="etiquette">Python</span>
+              <span class="etiquette">Java</span>
+              <span class="etiquette">C</span>
+              <span class="etiquette">C++</span>
+              <span class="etiquette">PHP</span>
+              <span class="etiquette">MySQL</span>
+              <span class="etiquette">Programmation orientée objet</span>
+            </div>
+          </div>
+
+          <div class="bloc">
+            <h3><span class="pastille" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18"/></svg></span>Web &amp; outils</h3>
+            <div class="etiquettes">
+              <span class="etiquette">HTML / CSS</span>
+              <span class="etiquette">JavaScript</span>
+              <span class="etiquette">Git / GitHub</span>
+              <span class="etiquette">VS Code</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 4. À PROPOS (à personnaliser) ===== -->
+    <section id="a-propos" class="gris a-propos">
+      <div class="conteneur">
+        <h2>À propos</h2>
+        <div class="a-propos-carte">
+          <p>Étudiante en <strong>troisième année de MIAGE (L3)</strong>, je conçois et développe des solutions informatiques adaptées à différents besoins.</p>
+          <p>Ma formation et mes expériences en projets me permettent de combiner <strong>développement web</strong> et <strong>analyse de données</strong>.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 5. CONTACT ===== -->
+    <section id="contact" class="contact">
+      <div class="conteneur">
+        <h2>Contact</h2>
+        <p>Une offre de stage ou une question ? Écrivez-moi.</p>
+        <div class="email-ligne">
+          <a href="mailto:msaasakina@gmail.com" class="bouton principal">Envoyer un email</a>
+          <button type="button" class="bouton contour" id="copier">Copier l'adresse</button>
+          <span class="confirmation" id="confirmation" role="status">Adresse copiée ✓</span>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ===== PIED DE PAGE ===== -->
+  <footer>
+    <div class="conteneur pied">
+      <span>© 2026 Sakina Mohamed Said Allaoui — Portfolio Data / BI</span>
+      <ul>
+        <li><a href="mailto:msaasakina@gmail.com">msaasakina@gmail.com</a></li>
+        <li><a href="https://github.com/Sakina-msa" target="_blank" rel="noopener">GitHub</a></li>
+        <!-- Ajoute ton LinkedIn ici :
+        <li><a href="https://www.linkedin.com/in/TON-PROFIL" target="_blank" rel="noopener">LinkedIn</a></li> -->
+      </ul>
+    </div>
+  </footer>
+
+  <!-- Bouton retour en haut -->
+  <button type="button" class="haut" id="haut" aria-label="Retour en haut">↑</button>
+
+  <script>
+    if ("IntersectionObserver" in window) {
+      /* 1. Le menu indique la section où l'on se trouve */
+      const liens = document.querySelectorAll("nav ul a");
+      const obsMenu = new IntersectionObserver((entrees) => {
+        entrees.forEach((e) => {
+          if (e.isIntersecting) {
+            liens.forEach((l) => l.classList.toggle("actif", l.getAttribute("href") === "#" + e.target.id));
+          }
+        });
+      }, { rootMargin: "-45% 0px -50% 0px" });
+      document.querySelectorAll("main section[id]").forEach((s) => obsMenu.observe(s));
+    }
+
+    /* 3. Bouton retour en haut */
+    const boutonHaut = document.getElementById("haut");
+    window.addEventListener("scroll", () => {
+      boutonHaut.classList.toggle("visible", window.scrollY > 500);
+      /* En bas de page, on surligne "Contact" (la dernière section est trop courte pour être détectée) */
+      if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 4) {
+        document.querySelectorAll("nav ul a").forEach((l) => l.classList.toggle("actif", l.getAttribute("href") === "#contact"));
+      }
+    });
+    boutonHaut.addEventListener("click", () => window.scrollTo({ top: 0 }));
+
+    /* 5. Dashboard visible directement dans la page
+       ➜ Colle ici l'adresse de ton dashboard en ligne (par exemple ton app Streamlit),
+         entre les guillemets. Tant que c'est vide, le bouton "Voir le dashboard ici" reste caché. */
+    const DEMO_URL = "";
+
+    if (DEMO_URL) {
+      const boutonDemo = document.getElementById("ouvrir-demo");
+      const zoneDemo = document.getElementById("demo");
+      const cadre = document.getElementById("demo-cadre");
+      document.getElementById("demo-plein").href = DEMO_URL;
+      boutonDemo.hidden = false;
+
+      boutonDemo.addEventListener("click", () => {
+        /* Le dashboard n'est chargé qu'au premier clic, pour que la page reste rapide */
+        if (!cadre.querySelector("iframe")) {
+          const iframe = document.createElement("iframe");
+          /* Pour Streamlit, "?embed=true" retire les menus et garde seulement le dashboard */
+          iframe.src = DEMO_URL.includes("streamlit.app")
+            ? DEMO_URL + (DEMO_URL.includes("?") ? "&" : "?") + "embed=true"
+            : DEMO_URL;
+          iframe.title = "Dashboard Digitalisation du Luxe";
+          iframe.loading = "lazy";
+          cadre.appendChild(iframe);
+        }
+        zoneDemo.hidden = false;
+        zoneDemo.scrollIntoView({ behavior: "smooth", block: "start" });
+      });
+
+      document.getElementById("fermer-demo").addEventListener("click", () => {
+        zoneDemo.hidden = true;
+        boutonDemo.focus();
+      });
+    }
+
+    /* Toute la carte du projet ouvre sa page (sauf les boutons et liens) */
+    document.querySelectorAll(".carte-cliquable").forEach((c) => {
+      c.addEventListener("click", (e) => {
+        if (e.target.closest("a, button")) return;
+        window.location.href = c.dataset.lien;
+      });
+    });
+
+    /* 4. Copier l'adresse email avec confirmation */
+    const email = "msaasakina@gmail.com";
+    const confirmation = document.getElementById("confirmation");
+    document.getElementById("copier").addEventListener("click", async () => {
+      try {
+        await navigator.clipboard.writeText(email);
+        confirmation.textContent = "Adresse copiée ✓";
+      } catch (err) {
+        confirmation.textContent = email;
+      }
+      confirmation.classList.add("visible");
+      setTimeout(() => confirmation.classList.remove("visible"), 2500);
+    });
+  </script>
+
+</body>
+</html>
