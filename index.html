@@ -219,9 +219,6 @@
       transition: box-shadow var(--transition), transform var(--transition), border-color var(--transition);
     }
     .carte:hover { box-shadow: var(--ombre); transform: translateY(-4px); border-color: var(--or); }
-    .carte-cliquable { cursor: pointer; }
-    .carte-cliquable .capture img { transition: transform 0.4s ease; }
-    .carte-cliquable:hover .capture img { transform: scale(1.02); }
 
     /* Capture du dashboard : s'affiche seulement si le fichier image existe */
     .capture {
@@ -450,14 +447,7 @@
       <div class="conteneur">
         <h2>Projets</h2>
 
-        <article class="carte carte-cliquable" data-lien="projet-luxe.html">
-          <!-- Capture du dashboard (luxe-1.png, dans le même dossier).
-               Tant que l'image n'existe pas, ce bloc reste caché. -->
-          <div class="capture">
-            <img src="vue-direction.png" alt="Capture du dashboard Digitalisation du Luxe : Vue Direction" loading="lazy"
-                 onerror="this.parentElement.style.display='none'">
-          </div>
-
+        <article class="carte">
           <div class="carte-corps">
             <h3><a href="projet-luxe.html" class="titre-projet">Digitalisation du Luxe : e-commerce &amp; marque (2015–2030)</a></h3>
 
@@ -650,14 +640,6 @@
         boutonDemo.focus();
       });
     }
-
-    /* Toute la carte du projet ouvre sa page (sauf les boutons et liens) */
-    document.querySelectorAll(".carte-cliquable").forEach((c) => {
-      c.addEventListener("click", (e) => {
-        if (e.target.closest("a, button")) return;
-        window.location.href = c.dataset.lien;
-      });
-    });
 
     /* 4. Copier l'adresse email avec confirmation */
     const email = "msaasakina@gmail.com";
